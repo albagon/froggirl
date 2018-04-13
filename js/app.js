@@ -38,7 +38,7 @@ var Player = function() {
     // This column value should start in the middle column
     this.x = 2 * 101;
     // This row value should be the bottom grass row
-    this.y = 5 * 83;
+    this.y = 5 * 76;
 };
 
 // Update the player's position, required method for game
@@ -56,8 +56,30 @@ Player.prototype.render = function() {
 // Handle the keys input, required method for game
 // Parameter: key, whether the player should go up, down, left or right
 Player.prototype.handleInput = function(key) {
-    // TODO: Add a switch expression to decide whether to add or
-    // take away pixels in the x or y axis.
+    switch (key) {
+        case 'left':
+            if(this.x !== 0){
+                this.x = this.x - 101;
+            }
+            break;
+        case 'up':
+            if(this.y !== -35){
+                this.y = this.y - 83;
+            }
+            break;
+        case 'right':
+            if(this.x !== 404){
+                this.x = this.x + 101;
+            }
+            break;
+        case 'down':
+            if(this.y !== 380){
+                this.y = this.y + 83;
+            }
+            break;
+        default:
+
+    }
 };
 
 // Now instantiate your objects.
