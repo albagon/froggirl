@@ -7,7 +7,7 @@ var Enemy = function(y) {
     // This column value should start in 1 because the enemy always
     // moves from the beginning of the canvas from left to right
     this.x = 1;
-    //this row value should be any of the 3 stone rows
+    // This row value should be any of the 3 stone rows
     this.y = y * 83;
 };
 
@@ -17,7 +17,7 @@ Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
-    this.x = this.x * dt; //I added this line
+    this.x = this.x * dt;
 };
 
 // Draw the enemy on the screen, required method for game
@@ -30,14 +30,44 @@ Enemy.prototype.render = function() {
 // a handleInput() method.
 // These are the cell sizes in the canvas: col * 101, row * 83
 
+// This is the player
+var Player = function() {
+    // The image/sprite for our player, this uses
+    // a helper we've provided to easily load images
+    this.sprite = 'images/char-boy.png';
+    // This column value should start in the middle column
+    this.x = 2 * 101;
+    // This row value should be the bottom grass row
+    this.y = 5 * 83;
+};
+
+// Update the player's position, required method for game
+// Parameter: dt, a time delta between ticks
+Player.prototype.update = function(dt) {
+    // The player should only move if a key is pressed
+    // TODO: I could check for collisions here?
+};
+
+// Draw the player on the screen, required method for game
+Player.prototype.render = function() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+};
+
+// Handle the keys input, required method for game
+// Parameter: key, whether the player should go up, down, left or right
+Player.prototype.handleInput = function(key) {
+    // TODO: Add a switch expression to decide whether to add or
+    // take away pixels in the x or y axis.
+};
 
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
-// Place the player object in a variable called player
 let allEnemies = [];
 let enemy1 = new Enemy(1);
 allEnemies.push(enemy1);
 
+// Place the player object in a variable called player
+let player = new Player();
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
