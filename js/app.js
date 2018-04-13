@@ -8,7 +8,7 @@ var Enemy = function(y) {
     // moves from the beginning of the canvas from left to right
     this.x = 1;
     // This row value should be any of the 3 stone rows
-    this.y = y * 83;
+    this.y = y * 63;
 };
 
 // Update the enemy's position, required method for game
