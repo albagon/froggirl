@@ -9,7 +9,7 @@
  * drawn but that is not the case. What's really happening is the entire "scene"
  * is being drawn over and over, presenting the illusion of animation.
  *
- * This engine makes the canvas' context (ctx) object globally available to make 
+ * This engine makes the canvas' context (ctx) object globally available to make
  * writing app.js a little simpler to work with.
  */
 
@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -94,6 +94,31 @@ var Engine = (function(global) {
             enemy.update(dt);
         });
         player.update();
+    }
+
+    /* This is called by the update function and loops through all of the
+     * objects within your allEnemies array as defined in app.js and verifies
+     * if the object and the player share the same space. It means there is
+     * a collision and it should call the player's begin() method to make the
+     * character start all over again. These update methods should focus purely
+     * on updating the data/properties related to the object. Do your drawing
+     * in your render methods.
+     */
+    function checkCollisions() {
+        let playerRy = player.getRealY();
+
+        // Check if any of the enemies and the player share the same space
+        allEnemies.forEach(function(enemy) {
+            if (enemy.x < player.x + player.width &&
+               enemy.x + enemy.width > player.x &&
+               enemy.ry < playerRy + player.height &&
+               enemy.height + enemy.ry > playerRy) {
+                // Collision detected!
+                // Put the player in the start position
+                player.begin();
+            }
+            // No collision
+        });
     }
 
     /* This function initially draws the "game level", it will then call
@@ -117,7 +142,7 @@ var Engine = (function(global) {
             numRows = 6,
             numCols = 5,
             row, col;
-        
+
         // Before drawing, clear existing canvas
         ctx.clearRect(0,0,canvas.width,canvas.height)
 
