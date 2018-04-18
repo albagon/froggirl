@@ -119,6 +119,12 @@ var Engine = (function(global) {
             }
             // No collision
         });
+
+        // Check if the player steps on the water
+        if(playerRy < 68){
+            // Player in the water!
+            player.begin();
+        }
     }
 
     /* This function initially draws the "game level", it will then call
