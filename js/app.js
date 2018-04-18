@@ -114,7 +114,7 @@ Player.prototype.begin = function() {
 function createEnemies(){
     let nowNumber = Date.now();
     let lastDigit = nowNumber % 10;
-    let speed = (lastDigit * 10) + 100;
+    let speed = (lastDigit * 10) + 110;
     // console.log('The last digit of ' + nowNumber + ' is ' + lastDigit);
     // Create enemy randomly
     switch (lastDigit) {
