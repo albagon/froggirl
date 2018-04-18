@@ -145,7 +145,9 @@ function createEnemies(){
 let player = new Player();
 // Now instantiate your objects
 let allEnemies = [];
-// Call createEnemies() every 993 milliseconds
+// Create the first enemy
+createEnemies();
+// Continue creating enemies every 993 milliseconds
 let enemiesInterval = window.setInterval(function() {
     createEnemies();
 }, 993);
