@@ -123,6 +123,7 @@ var Engine = (function(global) {
         // Check if the player steps on the water
         if(playerRy < 68){
             // Player in the water!
+            player.saveMe();
             player.begin();
         }
     }

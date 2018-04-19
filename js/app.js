@@ -49,10 +49,13 @@ var Player = function() {
     this.x = 2 * 101;
     // This row value should be the bottom grass row
     this.y = 5 * 80;
-    // This property will be useful when checking for collisions
-    // The real height of the player
+    // These 2 properties will be useful when checking for collisions
+    // (1) The real height of the player
     this.height = 75;
+    // (2) The real width of the player
     this.width = 95;
+    // The characters that made it to the water
+    this.saved = [];
 };
 
 // Update the player's position, required method for game
@@ -100,6 +103,12 @@ Player.prototype.handleInput = function(key) {
 Player.prototype.getRealY = function() {
     return this.y + 65;
 };
+
+// Save the location of the player in the water
+Player.prototype.saveMe = function() {
+    this.saved.push([this.x, this.y]);
+    console.log(this.saved);
+}
 
 // Place the player at the start position
 // This method is called after a collision with an enemy happens
