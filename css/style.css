@@ -1,3 +1,46 @@
 body {
     text-align: center;
+    font-family: 'Gamja Flower', cursive;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+h1 {
+    font-size: 2.2em;
+    margin: 29px 0 0 0;
+}
+
+/*
+ * Styles for the Score Panel
+ */
+
+.score-panel {
+    text-align: left;
+    width: 345px;
+    max-width: 90%;
+    margin-bottom: 10px;
+    padding: 0 5px;
+}
+
+.score-panel .hearts {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+.score-panel .hearts li {
+    list-style: none;
+    display: inline-block;
+    color: tomato;
+}
+
+.score-panel .restart {
+    float: right;
+    cursor: pointer;
 }
