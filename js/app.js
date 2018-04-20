@@ -54,7 +54,7 @@ var Player = function() {
     this.height = 75;
     // (2) The real width of the player
     this.width = 95;
-    // The characters that made it to the water
+    // The x value of the characters that made it to the water
     this.allSaved = [];
 };
 
@@ -69,12 +69,11 @@ Player.prototype.update = function(dt) {
 Player.prototype.render = function() {
     let allSaved = this.allSaved;
     let sprite = this.sprite;
-    
-    /* Loop through all of the objects within the allSaved array
-     * and draw them.
-     */
+
+    // Loop through all of the objects within the allSaved array
+    // and draw them.
     allSaved.forEach(function(saved) {
-        ctx.drawImage(Resources.get(sprite), saved[0], saved[1]);
+        ctx.drawImage(Resources.get(sprite), saved, -15);
     });
 
     // Draw the player on the screen
@@ -91,7 +90,17 @@ Player.prototype.handleInput = function(key) {
             }
             break;
         case 'up':
+            // Check if the player can move up INSIDE the canvas
             if(this.y !== -15){
+                // Check if the player wants to move to
+                // an occupied space in the water.
+                let nextYPosition = this.y - 83;
+                if(nextYPosition === -15 && this.allSaved.includes(this.x)){
+                  // This space in the water is occupied
+                  // Do not move
+                  break;
+                }
+                // The player moves up
                 this.y = this.y - 83;
             }
             break;
@@ -117,8 +126,9 @@ Player.prototype.getRealY = function() {
 };
 
 // Save the location of the player in the water
+// Save only x because y will always be -15
 Player.prototype.saveMe = function() {
-    this.allSaved.push([this.x, this.y]);
+    this.allSaved.push(this.x);
     console.log(this.allSaved);
 }
 
