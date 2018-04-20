@@ -61,7 +61,11 @@ var Player = function() {
 // Update the player's position, required method for game
 // Parameter: dt, a time delta between ticks
 Player.prototype.update = function(dt) {
-
+    // Check if the player has won
+    if(this.allSaved.length === 3){
+        console.log('CONGRATULATIONS YOU WON');
+        // TODO: Pop up a modal to congratulate the player
+    }
 };
 
 // Draw the characters in the water and the player on the screen
