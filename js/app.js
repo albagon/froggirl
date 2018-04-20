@@ -55,7 +55,7 @@ var Player = function() {
     // (2) The real width of the player
     this.width = 95;
     // The characters that made it to the water
-    this.saved = [];
+    this.allSaved = [];
 };
 
 // Update the player's position, required method for game
@@ -64,8 +64,20 @@ Player.prototype.update = function(dt) {
 
 };
 
-// Draw the player on the screen, required method for game
+// Draw the characters in the water and the player on the screen
+// Required method for game
 Player.prototype.render = function() {
+    let allSaved = this.allSaved;
+    let sprite = this.sprite;
+    
+    /* Loop through all of the objects within the allSaved array
+     * and draw them.
+     */
+    allSaved.forEach(function(saved) {
+        ctx.drawImage(Resources.get(sprite), saved[0], saved[1]);
+    });
+
+    // Draw the player on the screen
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
@@ -106,8 +118,8 @@ Player.prototype.getRealY = function() {
 
 // Save the location of the player in the water
 Player.prototype.saveMe = function() {
-    this.saved.push([this.x, this.y]);
-    console.log(this.saved);
+    this.allSaved.push([this.x, this.y]);
+    console.log(this.allSaved);
 }
 
 // Place the player at the start position
