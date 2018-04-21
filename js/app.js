@@ -64,7 +64,12 @@ Player.prototype.update = function(dt) {
     // Check if the player has won
     if(this.allSaved.length === 3){
         console.log('CONGRATULATIONS YOU WON');
-        // TODO: Pop up a modal to congratulate the player
+        // Clear array of saved characters
+        this.allSaved = [];
+        // Stop the enemies
+        stopEnemies(enemiesInterval);
+        // Pop up a modal to congratulate the player
+        popUpModal();
     }
 };
 
@@ -175,6 +180,64 @@ function createEnemies(){
         default:
             // Do not create enemy
     }
+}
+
+/**
+* description: Stops the creation of enemies
+* param: {interval} tmr
+*/
+
+function stopEnemies(tmr) {
+    window.clearInterval(tmr);
+}
+
+/**
+* description: The congratulations modal
+*/
+
+function popUpModal() {
+    // Get the modal
+    const modal = document.getElementById('myModal');
+    // Update the game statistics in the modal
+    // document.getElementById('modalHearts').textContent = heartsCounter;
+    // Open the modal
+    modal.style.display = 'block';
+    // Get the button that closes the modal
+    const modalButton = document.getElementById('modalButton');
+    // Add event listener to play again button
+    modalButton.addEventListener('click', function(){
+      modal.style.display = 'none';
+      startGame();
+    }, false);
+}
+
+/**
+* This is the function that makes everything start
+*/
+
+function startGame() {
+    allEnemies = [];
+    enemiesInterval = null;
+    //heartsCounter = 5;
+    player.begin();
+
+    // const moves = document.querySelector('.moves');
+    // moves.textContent = moveCounter;
+    //
+    // const starsIds = ['star1', 'star2', 'star3'];
+    // starsIds.forEach(function(id) {
+    //     document.getElementById(id).classList.replace('fa-star-o', 'fa-star');
+    // });
+    //
+    // const reset = document.querySelector('.restart');
+    // reset.addEventListener('click', restartGame);
+
+    // Create the first enemy
+    createEnemies();
+    // Continue creating enemies every 993 milliseconds
+    enemiesInterval = window.setInterval(function() {
+        createEnemies();
+    }, 993);
 }
 
 // Place the player object in a variable called player

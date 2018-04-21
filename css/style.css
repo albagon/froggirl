@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    font-family: 'Gamja Flower', cursive;
+    font: 1.3em 'Gamja Flower', cursive;
 }
 
 .container {
@@ -42,5 +42,86 @@ h1 {
 
 .score-panel .restart {
     float: right;
+    cursor: pointer;
+}
+
+/*
+ * The Modal
+ */
+
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4); /* Black with opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Header */
+.modal-header {
+    padding: 100px 16px 10px 16px;
+    background-color: #fff;
+}
+
+/* Modal Body */
+.modal-body {
+    padding: 10px 16px;
+}
+
+.modal-body .hearts {
+    color: tomato;
+}
+
+/* Modal Footer */
+.modal-footer {
+    padding: 10px 16px 125px 16px;
+    background-color: #fff;
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    text-align: center;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation: 0.4s animatetop;
+    animation: 0.4s animatetop;
+}
+
+/* Animation to Modal*/
+@-webkit-keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity: 0}
+    to {top: 0; opacity: 1}
+}
+
+/* The Close Button */
+.close {
+    color: #fff;
+    font: 15px sans-serif;
+    padding: 10px 20px;
+    background-color: #10cda8;
+    border-radius: 10px;
+    text-decoration: none;
+}
+
+.close:hover,
+.close:focus {
+    color: #fff;
+    text-decoration: none;
     cursor: pointer;
 }
