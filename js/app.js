@@ -155,6 +155,7 @@ function createEnemies(){
     switch (lastDigit) {
         case 8:
         case 7:
+        case 1:
             // The value of y is 63, that is the first stone row
             let enemy1 = new Enemy(63, speed);
             allEnemies.push(enemy1);
