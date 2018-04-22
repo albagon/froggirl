@@ -63,7 +63,6 @@ var Player = function() {
 Player.prototype.update = function(dt) {
     // Check if the player has won
     if(this.allSaved.length === 3){
-        console.log('CONGRATULATIONS YOU WON');
         // Clear array of saved characters
         this.allSaved = [];
         // Stop the enemies
@@ -104,6 +103,7 @@ Player.prototype.handleInput = function(key) {
                 // Check if the player wants to move to
                 // an occupied space in the water.
                 let nextYPosition = this.y - 83;
+
                 if(nextYPosition === -15 && this.allSaved.includes(this.x)){
                   // This space in the water is occupied
                   // Do not move
@@ -138,7 +138,6 @@ Player.prototype.getRealY = function() {
 // Save only x because y will always be -15
 Player.prototype.saveMe = function() {
     this.allSaved.push(this.x);
-    console.log(this.allSaved);
 }
 
 // Place the player at the start position
@@ -155,7 +154,7 @@ function createEnemies(){
     let nowNumber = Date.now();
     let lastDigit = nowNumber % 10;
     let speed = (lastDigit * 10) + 110;
-    // console.log('The last digit of ' + nowNumber + ' is ' + lastDigit);
+
     // Create enemy randomly
     switch (lastDigit) {
         case 8:
@@ -186,7 +185,6 @@ function createEnemies(){
 * description: Stops the creation of enemies
 * param: {interval} tmr
 */
-
 function stopEnemies(tmr) {
     window.clearInterval(tmr);
 }
@@ -194,31 +192,20 @@ function stopEnemies(tmr) {
 /**
 * description: The congratulations modal
 */
-
 function popUpModal() {
-    // Get the modal
-    const modal = document.getElementById('myModal');
     // Update the game statistics in the modal
     // document.getElementById('modalHearts').textContent = heartsCounter;
     // Open the modal
     modal.style.display = 'block';
-    // Get the button that closes the modal
-    const modalButton = document.getElementById('modalButton');
-    // Add event listener to play again button
-    modalButton.addEventListener('click', function(){
-      modal.style.display = 'none';
-      startGame();
-    }, false);
 }
 
 /**
-* This is the function that makes everything start
+* description: This function starts a new game
 */
-
 function startGame() {
     allEnemies = [];
-    enemiesInterval = null;
     //heartsCounter = 5;
+    // Put player in the start position
     player.begin();
 
     // const moves = document.querySelector('.moves');
@@ -244,12 +231,23 @@ function startGame() {
 let player = new Player();
 // Now instantiate your objects
 let allEnemies = [];
-// Create the first enemy
+
 createEnemies();
 // Continue creating enemies every 993 milliseconds
 let enemiesInterval = window.setInterval(function() {
     createEnemies();
 }, 993);
+
+// Get the modal
+let modal = document.getElementById('myModal');
+// Get the button that closes the modal
+let modalButton = document.getElementById('modalButton');
+// Add event listener to modal button
+modalButton.addEventListener('click', function(){
+  modal.style.display = 'none';
+  debugger;
+  startGame();
+}, false);
 
 // This listens for key presses and sends the keys to your
 // Player.handleInput() method. You don't need to modify this.
