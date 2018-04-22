@@ -116,6 +116,8 @@ var Engine = (function(global) {
                 // Collision detected!
                 // Put the player in the start position
                 player.begin();
+                // Lose a heart
+                player.loseHeart();
             }
             // No collision
         });

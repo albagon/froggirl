@@ -54,8 +54,11 @@ var Player = function() {
     this.height = 75;
     // (2) The real width of the player
     this.width = 95;
+    // The number of hearts/lives
+    this.hearts = 5;
     // The x value of the characters that made it to the water
     this.allSaved = [];
+    this.active = true;
 };
 
 // Update the player's position, required method for game
@@ -63,8 +66,7 @@ var Player = function() {
 Player.prototype.update = function(dt) {
     // Check if the player has won
     if(this.allSaved.length === 3){
-        // Clear array of saved characters
-        this.allSaved = [];
+        this.active = false;
         // Stop the enemies
         stopEnemies(enemiesInterval);
         // Pop up a modal to congratulate the player
@@ -91,41 +93,44 @@ Player.prototype.render = function() {
 // Handle the keys input, required method for game
 // Parameter: key, whether the player should go up, down, left or right
 Player.prototype.handleInput = function(key) {
-    switch (key) {
-        case 'left':
-            if(this.x !== 0){
-                this.x = this.x - 101;
-            }
-            break;
-        case 'up':
-            // Check if the player can move up INSIDE the canvas
-            if(this.y !== -15){
-                // Check if the player wants to move to
-                // an occupied space in the water.
-                let nextYPosition = this.y - 83;
-
-                if(nextYPosition === -15 && this.allSaved.includes(this.x)){
-                  // This space in the water is occupied
-                  // Do not move
-                  break;
+    if(this.active){
+        switch (key) {
+            case 'left':
+                if(this.x !== 0){
+                    this.x = this.x - 101;
                 }
-                // The player moves up
-                this.y = this.y - 83;
-            }
-            break;
-        case 'right':
-            if(this.x !== 404){
-                this.x = this.x + 101;
-            }
-            break;
-        case 'down':
-            if(this.y !== 400){
-                this.y = this.y + 83;
-            }
-            break;
-        default:
+                break;
+            case 'up':
+                // Check if the player can move up INSIDE the canvas
+                if(this.y !== -15){
+                    // Check if the player wants to move to
+                    // an occupied space in the water.
+                    let nextYPosition = this.y - 83;
 
+                    if(nextYPosition === -15 && this.allSaved.includes(this.x)){
+                      // This space in the water is occupied
+                      // Do not move
+                      break;
+                    }
+                    // The player moves up
+                    this.y = this.y - 83;
+                }
+                break;
+            case 'right':
+                if(this.x !== 404){
+                    this.x = this.x + 101;
+                }
+                break;
+            case 'down':
+                if(this.y !== 400){
+                    this.y = this.y + 83;
+                }
+                break;
+            default:
+
+        }
     }
+    // The player is not active, don't move
 };
 
 // Return the real 'y' value where the player drawing starts
@@ -147,6 +152,24 @@ Player.prototype.begin = function() {
     this.x = 2 * 101;
     // This row value should be the bottom grass row
     this.y = 5 * 80;
+};
+
+// This method is called after a collision with an enemy happens
+Player.prototype.loseHeart = function() {
+    this.hearts = this.hearts - 1;
+    console.log('hearts = '+this.hearts);
+
+    if(this.hearts === 0){
+        // Game over
+        console.log('game over');
+        this.active = false;
+        // Clear array of saved characters
+        this.allSaved = [];
+        // Stop the enemies
+        stopEnemies(enemiesInterval);
+        // Pop up a modal to congratulate the player
+        popUpModal();
+    }
 };
 
 // Place all enemy objects in an array called allEnemies
@@ -204,9 +227,11 @@ function popUpModal() {
 */
 function startGame() {
     allEnemies = [];
-    //heartsCounter = 5;
+    player.hearts = 5;
     // Put player in the start position
     player.begin();
+    player.allSaved = [];
+    player.active = true;
 
     // const moves = document.querySelector('.moves');
     // moves.textContent = moveCounter;
@@ -221,6 +246,7 @@ function startGame() {
 
     // Create the first enemy
     createEnemies();
+    debugger;
     // Continue creating enemies every 993 milliseconds
     enemiesInterval = window.setInterval(function() {
         createEnemies();
@@ -233,6 +259,7 @@ let player = new Player();
 let allEnemies = [];
 
 createEnemies();
+debugger;
 // Continue creating enemies every 993 milliseconds
 let enemiesInterval = window.setInterval(function() {
     createEnemies();
@@ -245,7 +272,6 @@ let modalButton = document.getElementById('modalButton');
 // Add event listener to modal button
 modalButton.addEventListener('click', function(){
   modal.style.display = 'none';
-  debugger;
   startGame();
 }, false);
 
