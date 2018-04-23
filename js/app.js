@@ -66,11 +66,7 @@ var Player = function() {
 Player.prototype.update = function(dt) {
     // Check if the player has won
     if(this.allSaved.length === 3){
-        this.active = false;
-        // Stop the enemies
-        stopEnemies(enemiesInterval);
-        // Pop up a modal to congratulate the player
-        popUpModal();
+        this.stopGame('congrats');
     }
 };
 
@@ -147,6 +143,7 @@ Player.prototype.saveMe = function() {
 
 // Place the player at the start position
 // This method is called after a collision with an enemy happens
+// and at the beggining of the startGame() function.
 Player.prototype.begin = function() {
     // This column value should be the middle column
     this.x = 2 * 101;
@@ -162,14 +159,25 @@ Player.prototype.loseHeart = function() {
     if(this.hearts === 0){
         // Game over
         console.log('game over');
-        this.active = false;
-        // Clear array of saved characters
-        this.allSaved = [];
-        // Stop the enemies
-        stopEnemies(enemiesInterval);
-        // Pop up a modal to congratulate the player
-        popUpModal();
+        this.stopGame('game-over');
     }
+};
+
+/**
+* description: This method inactivates the player, erasers all the
+* enemies, erasers the characters in the water, clears the enemiesInterval
+* and pops up a modal. It is called when the player either wins or loses.
+* param: {string} msg
+*/
+Player.prototype.stopGame = function(msg) {
+    this.active = false;
+    allEnemies = [];
+    // Clear array of saved characters
+    this.allSaved = [];
+    // Stop the enemies
+    stopEnemies(enemiesInterval);
+    // Pop up a modal to congratulate the player
+    popUpModal(msg);
 };
 
 // Place all enemy objects in an array called allEnemies
@@ -213,9 +221,10 @@ function stopEnemies(tmr) {
 }
 
 /**
-* description: The congratulations modal
+* description: The modal
+* param: {string} msg ('game-over' / 'congrats')
 */
-function popUpModal() {
+function popUpModal(msg) {
     // Update the game statistics in the modal
     // document.getElementById('modalHearts').textContent = heartsCounter;
     // Open the modal
@@ -226,11 +235,9 @@ function popUpModal() {
 * description: This function starts a new game
 */
 function startGame() {
-    allEnemies = [];
     player.hearts = 5;
     // Put player in the start position
     player.begin();
-    player.allSaved = [];
     player.active = true;
 
     // const moves = document.querySelector('.moves');
@@ -246,7 +253,6 @@ function startGame() {
 
     // Create the first enemy
     createEnemies();
-    debugger;
     // Continue creating enemies every 993 milliseconds
     enemiesInterval = window.setInterval(function() {
         createEnemies();
@@ -259,7 +265,6 @@ let player = new Player();
 let allEnemies = [];
 
 createEnemies();
-debugger;
 // Continue creating enemies every 993 milliseconds
 let enemiesInterval = window.setInterval(function() {
     createEnemies();
