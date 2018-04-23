@@ -109,8 +109,8 @@ var Engine = (function(global) {
 
         // Check if any of the enemies and the player share the same space
         allEnemies.forEach(function(enemy) {
-            if (enemy.x < player.x + player.width &&
-               enemy.x + enemy.width > player.x &&
+            if (enemy.x < (player.x + 15) + (player.width - 30) &&
+               enemy.x + enemy.width > (player.x + 15) &&
                enemy.ry < playerRy + player.height &&
                enemy.height + enemy.ry > playerRy) {
                 // Collision detected!
