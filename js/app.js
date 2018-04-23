@@ -153,6 +153,14 @@ Player.prototype.begin = function() {
 
 // This method is called after a collision with an enemy happens
 Player.prototype.loseHeart = function() {
+    // Get heart to be erased
+    const heart = document.getElementById('heart'+this.hearts);
+    // Erase heart from score panel
+    if(heart !== null){
+        heart.classList.replace('fa-heart', 'fa-heart-o');
+    }
+
+    // Lose a heart
     this.hearts = this.hearts - 1;
     console.log('hearts = '+this.hearts);
 
@@ -256,12 +264,13 @@ function startGame() {
 
     // const moves = document.querySelector('.moves');
     // moves.textContent = moveCounter;
-    //
-    // const starsIds = ['star1', 'star2', 'star3'];
-    // starsIds.forEach(function(id) {
-    //     document.getElementById(id).classList.replace('fa-star-o', 'fa-star');
-    // });
-    //
+
+    // Draw the 5 hearts in the panel
+    const heartsIds = ['heart1', 'heart2', 'heart3', 'heart4', 'heart5'];
+    heartsIds.forEach(function(id) {
+        document.getElementById(id).classList.replace('fa-heart-o', 'fa-heart');
+    });
+
     // const reset = document.querySelector('.restart');
     // reset.addEventListener('click', restartGame);
 
