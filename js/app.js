@@ -157,7 +157,7 @@ Player.prototype.loseHeart = function() {
     const heart = document.getElementById('heart'+this.hearts);
     // Erase heart from score panel
     if(heart !== null){
-        heart.classList.replace('fa-heart', 'fa-heart-o');
+        heart.classList.replace('fas', 'far');
     }
 
     // Lose a heart
@@ -270,11 +270,8 @@ function startGame() {
     // Draw the 5 hearts in the panel
     const heartsIds = ['heart1', 'heart2', 'heart3', 'heart4', 'heart5'];
     heartsIds.forEach(function(id) {
-        document.getElementById(id).classList.replace('fa-heart-o', 'fa-heart');
+        document.getElementById(id).classList.replace('far', 'fas');
     });
-
-    // const reset = document.querySelector('.restart');
-    // reset.addEventListener('click', restartGame);
 
     // Create the first enemy
     createEnemies();

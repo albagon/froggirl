@@ -20,7 +20,7 @@ h1 {
  */
 
 .score-panel {
-    text-align: left;
+    text-align: center;
     width: 345px;
     max-width: 90%;
     margin-bottom: 10px;
@@ -38,11 +38,6 @@ h1 {
     list-style: none;
     display: inline-block;
     color: tomato;
-}
-
-.score-panel .restart {
-    float: right;
-    cursor: pointer;
 }
 
 /*
