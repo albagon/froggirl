@@ -44,7 +44,7 @@ Enemy.prototype.render = function() {
 var Player = function() {
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/char-boy.png';
+    this.sprite = 'images/char-cat-girl.png';
     // This column value should be the middle column
     this.x = 2 * 101;
     // This row value should be the bottom grass row
