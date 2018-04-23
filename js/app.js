@@ -192,24 +192,26 @@ Player.prototype.stopGame = function(msg) {
 function createEnemies(){
     let nowNumber = Date.now();
     let lastDigit = nowNumber % 10;
-    let speed = (lastDigit * 10) + 110;
+    let speed = (lastDigit * 10) + 120;
 
     // Create enemy randomly
     switch (lastDigit) {
-        case 8:
+        case 0:
         case 7:
         case 1:
+        case 2:
             // The value of y is 63, that is the first stone row
             let enemy1 = new Enemy(63, speed);
             allEnemies.push(enemy1);
             break;
         case 3:
-        case 9:
+        case 8:
              // The value of y is 83 more than the first stone row
             let enemy2 = new Enemy(146, speed);
             allEnemies.push(enemy2);
             break;
         case 4:
+        case 5:
         case 6:
             // The value of y is 83 more than the second stone row
             let enemy3 = new Enemy(229, speed);
