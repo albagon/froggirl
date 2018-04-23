@@ -226,7 +226,21 @@ function stopEnemies(tmr) {
 */
 function popUpModal(msg) {
     // Update the game statistics in the modal
-    // document.getElementById('modalHearts').textContent = heartsCounter;
+    switch (msg) {
+      case 'congrats':
+          // It's a happy modal
+          document.getElementById('modalMsg').textContent = 'Congratulations! You Won!';
+          document.getElementById('modalHearts').textContent = player.hearts;
+          document.getElementById('modalP').style.display = 'block';
+          break;
+      case 'game-over':
+          // It's a sad modal
+          document.getElementById('modalMsg').textContent = 'GAME OVER';
+          document.getElementById('modalP').style.display = 'none';
+          break;
+      default:
+
+    }
     // Open the modal
     modal.style.display = 'block';
 }
