@@ -1,3 +1,4 @@
+'use strict';
 // Enemies our player must avoid
 // Parameter: y, can be 1, 2 or 3 because those are the stone rows
 var Enemy = function(y, speed) {
