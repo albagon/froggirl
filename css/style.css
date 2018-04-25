@@ -1,6 +1,6 @@
 body {
     text-align: center;
-    font: 1.3em 'Gamja Flower', cursive;
+    font: 1.3em "Gamja Flower", cursive;
 }
 
 .container {
@@ -15,10 +15,7 @@ h1 {
     margin: 29px 0 0 0;
 }
 
-/*
- * Styles for the Score Panel
- */
-
+/* Styles for the Score Panel */
 .score-panel {
     text-align: center;
     width: 345px;
@@ -40,10 +37,7 @@ h1 {
     color: tomato;
 }
 
-/*
- * The Modal
- */
-
+/* The Modal */
 .modal {
     display: none;
     position: fixed;
@@ -58,13 +52,11 @@ h1 {
     align-items: center;
 }
 
-/* Modal Header */
 .modal-header {
     padding: 100px 16px 10px 16px;
     background-color: #fff;
 }
 
-/* Modal Body */
 .modal-body {
     padding: 10px 16px;
 }
@@ -73,13 +65,11 @@ h1 {
     color: tomato;
 }
 
-/* Modal Footer */
 .modal-footer {
     padding: 10px 16px 125px 16px;
     background-color: #fff;
 }
 
-/* Modal Content */
 .modal-content {
     position: relative;
     background-color: #fefefe;

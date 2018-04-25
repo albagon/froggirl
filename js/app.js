@@ -1,7 +1,11 @@
 'use strict';
-// Enemies our player must avoid
-// Parameter: y, can be 1, 2 or 3 because those are the stone rows
-var Enemy = function(y, speed) {
+/**
+* description: Constructor of enemies our player must avoid
+* param: {number} y - This is the y position of the enemy
+* It can be 1, 2 or 3 corresponding to the 3 stone rows
+* param: {number} speed - How fast the enemy moves
+*/
+const Enemy = function(y, speed) {
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
@@ -22,8 +26,10 @@ var Enemy = function(y, speed) {
     this.speed = speed;
 };
 
-// Update the enemy's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+* description: Update the enemy's position, required method for game
+* param: {number} dt - A time delta between ticks
+*/
 Enemy.prototype.update = function(dt) {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
@@ -31,18 +37,17 @@ Enemy.prototype.update = function(dt) {
     this.x = this.x + (dt * this.speed);
 };
 
-// Draw the enemy on the screen, required method for game
+/**
+* description: Draw the enemy on the screen, required method for game
+*/
 Enemy.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Now write your own player class
-// This class requires an update(), render() and
-// a handleInput() method.
-// These are the cell sizes in the canvas: col * 101, row * 83
-
-// This is the player
-var Player = function() {
+/**
+* description: Constructor of the player
+*/
+const Player = function() {
     // The image/sprite for our player, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/char-cat-girl.png';
@@ -62,8 +67,10 @@ var Player = function() {
     this.active = true;
 };
 
-// Update the player's position, required method for game
-// Parameter: dt, a time delta between ticks
+/**
+* description: Update the player's position, required method for game
+* param: {number} dt - A time delta between ticks
+*/
 Player.prototype.update = function(dt) {
     // Check if the player has won
     if(this.allSaved.length === 3){
@@ -71,8 +78,10 @@ Player.prototype.update = function(dt) {
     }
 };
 
-// Draw the characters in the water and the player on the screen
-// Required method for game
+/**
+* description: Draw the characters in the water and the player on the screen
+* Required method for game
+*/
 Player.prototype.render = function() {
     let allSaved = this.allSaved;
     let sprite = this.sprite;
@@ -87,8 +96,10 @@ Player.prototype.render = function() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
 };
 
-// Handle the keys input, required method for game
-// Parameter: key, whether the player should go up, down, left or right
+/**
+* description: Handle the keys input, required method for game
+* param: {string} key - whether the player should go up, down, left or right
+*/
 Player.prototype.handleInput = function(key) {
     if(this.active){
         switch (key) {
@@ -130,21 +141,27 @@ Player.prototype.handleInput = function(key) {
     // The player is not active, don't move
 };
 
-// Return the real 'y' value where the player drawing starts
-// This method is called in Player.prototype.toMap
+/**
+* description: Return the real 'y' value where the player drawing starts
+* This method is called when checking Collisions
+*/
 Player.prototype.getRealY = function() {
     return this.y + 65;
 };
 
-// Save the location of the player in the water
-// Save only x because y will always be -15
+/**
+* description: Save the location of the player in the water
+* Save only x because y will always be -15
+*/
 Player.prototype.saveMe = function() {
     this.allSaved.push(this.x);
-}
+};
 
-// Place the player at the start position
-// This method is called after a collision with an enemy happens
-// and at the beggining of the startGame() function.
+/**
+* description: Place the player at the start position
+* This method is called after a collision with an enemy happens
+* and at the beggining of the startGame() function.
+*/
 Player.prototype.begin = function() {
     // This column value should be the middle column
     this.x = 2 * 101;
@@ -152,7 +169,10 @@ Player.prototype.begin = function() {
     this.y = 5 * 80;
 };
 
-// This method is called after a collision with an enemy happens
+/**
+* description: The player loses a heart
+* This method is called after a collision with an enemy happens
+*/
 Player.prototype.loseHeart = function() {
     // Get heart to be erased
     const heart = document.getElementById('heart'+this.hearts);
@@ -163,11 +183,9 @@ Player.prototype.loseHeart = function() {
 
     // Lose a heart
     this.hearts = this.hearts - 1;
-    console.log('hearts = '+this.hearts);
 
     if(this.hearts === 0){
         // Game over
-        console.log('game over');
         this.stopGame('game-over');
     }
 };
@@ -176,7 +194,7 @@ Player.prototype.loseHeart = function() {
 * description: This method inactivates the player, erasers all the
 * enemies, erasers the characters in the water, clears the enemiesInterval
 * and pops up a modal. It is called when the player either wins or loses.
-* param: {string} msg
+* param: {string} msg - ('game-over' / 'congrats') The reason why the game ended
 */
 Player.prototype.stopGame = function(msg) {
     this.active = false;
@@ -233,23 +251,23 @@ function stopEnemies(tmr) {
 
 /**
 * description: The modal
-* param: {string} msg ('game-over' / 'congrats')
+* param: {string} msg ('game-over' / 'congrats') The reason why the game ended
 */
 function popUpModal(msg) {
     // Update the game statistics in the modal
     switch (msg) {
-      case 'congrats':
-          // It's a happy modal
-          document.getElementById('modalMsg').textContent = 'Congratulations! You Won!';
-          document.getElementById('modalHearts').textContent = player.hearts;
-          document.getElementById('modalP').style.display = 'block';
-          break;
-      case 'game-over':
-          // It's a sad modal
-          document.getElementById('modalMsg').textContent = 'GAME OVER';
-          document.getElementById('modalP').style.display = 'none';
-          break;
-      default:
+        case 'congrats':
+            // It's a happy modal
+            document.getElementById('modalMsg').textContent = 'Congratulations! You Won!';
+            document.getElementById('modalHearts').textContent = player.hearts;
+            document.getElementById('modalP').style.display = 'block';
+            break;
+        case 'game-over':
+            // It's a sad modal
+            document.getElementById('modalMsg').textContent = 'GAME OVER';
+            document.getElementById('modalP').style.display = 'none';
+            break;
+        default:
 
     }
     // Open the modal
@@ -299,14 +317,16 @@ let modal = document.getElementById('myModal');
 let modalButton = document.getElementById('modalButton');
 // Add event listener to modal button
 modalButton.addEventListener('click', function(){
-  modal.style.display = 'none';
-  startGame();
+    modal.style.display = 'none';
+    startGame();
 }, false);
 
-// This listens for key presses and sends the keys to your
-// Player.handleInput() method. You don't need to modify this.
+/**
+* description: This listens for key presses and sends the keys to your
+* Player.handleInput() method. You don't need to modify this.
+*/
 document.addEventListener('keyup', function(e) {
-    var allowedKeys = {
+    const allowedKeys = {
         37: 'left',
         38: 'up',
         39: 'right',
